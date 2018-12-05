@@ -59,7 +59,7 @@ Node* CreateNode(char** str)
 }
 
 
-int HashFunct(char** str)
+int HashFunct1(char** str)
 {
   int len = strlen(*str)+1;
   int sum = 0;
@@ -87,9 +87,37 @@ int HashFunct(char** str)
 
        }
   printf("4 %d\n", sum);
-  sum =  sum/7;
+  sum =  sum&SIZE;
 //  printf("%d\n", sum);
   return sum;
+}
+
+int HashFunct2(char** str)
+{
+  int len = strlen(*str)+1;
+  int sum = 0;
+  char letr[len]= {};
+  strcpy(letr, *str);
+  for ( int i = 0; i < len; i++ )
+  {
+    sum = sum + letr[i] ;
+    printf("1 %d\n", sum);
+  }
+  return sum;
+}
+
+int HashFunct3(char** str)
+{
+  int len = strlen(*str)+1;
+  int sum = 0;
+  char letr[len]= {};
+  strcpy(letr, *str);
+  for ( int i = 0; i < len; i++ )
+  {
+    sum = sum + B*letr[i] ;
+    printf("1 %d\n", sum);
+  }
+  return sum%SIZE;
 }
 
 Node* InsertNod(Node* cur_ptr, char** str)
@@ -128,9 +156,8 @@ if (strcmp(cur -> data, *str) != 0)
 }
 }
 
-Node* Registr( char** text, List* lists )
+Node* Registr( char** text, List* lists,  int a)
 {
-  int a = HashFunct(text);
   if (lists[a].head  == NULL && lists[a].size == 0)
   {
     lists[a].head = CreateNode(text);
@@ -143,9 +170,8 @@ Node* Registr( char** text, List* lists )
     }
 }
 
-void DeleteNode(char** text, List* lists)
+void DeleteNode(char** text, List* lists, int a)
 {
-  int a = HashFunct(text);
   Node* ptr =Search_Node(text  ,  lists[a].head);
   if ( ptr -> next == NULL && ptr -> prev == NULL)
   {
@@ -189,13 +215,8 @@ void DeleteAll (  List* list_ptr)
   }
 }
 
-void WriteData (List* lists)
+void WriteData (FILE *sort,  List* lists)
 {
-  FILE *sort = fopen ("graf.ods", "w");
-  if (!sort)
-    {
-      printf ("Cannot open graf.ods");
-    }
   for (int i = 0; i < SIZE; i++)
     {
       fprintf (sort, "%d; ", i);
