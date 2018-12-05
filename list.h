@@ -9,6 +9,7 @@ const int ERROR = -1;
 const int NUM1 = 123;
 const int NUM2 = 522;
 const int A = 13;
+const int B = 52;
 
 
 
@@ -36,7 +37,7 @@ int CountAndChange (char buf[], int size);
 int Texting (char buf[], char *text[], int counter, int size);
 
 Node* CreateNode(char** str);
-int HashFunct(char** str);
+long long int HashFunct(char** str);
 Node* InsertNod(Node* cur_ptr, char** str);
 Node* Search_Node (char** str , Node* head);
 Node* Registr( char** text, List* lists );
