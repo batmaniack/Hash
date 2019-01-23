@@ -195,6 +195,7 @@ void DeleteNode(char** text, List* lists, int a)
   }
   delete []ptr->data ;
   ptr = NULL;
+  delete ptr;
 }
 
 void DeleteAll (  List* list_ptr)
@@ -210,6 +211,7 @@ void DeleteAll (  List* list_ptr)
           delete []tmp->data;
           tmp->next = NULL;
           tmp = NULL;
+          delete tmp;
       }
     }
   }
